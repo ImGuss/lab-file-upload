@@ -1,0 +1,48 @@
+<h2>All Posts</h2>
+
+<% if (typeof message !== 'undefined') { %>
+  <div class="error"><%= message %></div>
+<% } %>
+
+
+<% posts.forEach( (onePost) => { %>
+  <ul>
+    <li><%= onePost.content %></li>
+    <li><img src="<%= onePost.picPath %>"></li>
+    <% if (onePost.comments.length > 0) { %>
+      <li class="comments">
+        <ul>
+          <% onePost.comments.forEach ( (comment) => { %>
+            <li><%= comment.authorName %></li>
+            <li><%= comment.content %></li>
+            <li><%= comment.imageName %></li>
+            <li><img src="<%= comment.imagePath %>"></li>
+          <% }); %>
+        </ul>
+      </li>
+    <% } %>
+    <li>
+      <form class="comment-form" action="/comments/<%= onePost._id %>" method="post" enctype="multipart/form-data">
+        <label for="">Leave a Comment</label>
+        <br>
+        <input type="textarea" name="commentInput">
+        <br><br>
+
+        <label for="image-input">Image</label>
+        <br>
+        <input id="image-input" type="file" name="imagePath">
+        <br><br>
+
+        <label for="image-name-input">Image Name</label>
+        <br>
+        <input id="image-name-input" type="text" name="imageName">
+        <br>
+
+        <button>Add Comment</button>
+        <br><br>
+      </form>
+    </li>
+  </ul>
+
+
+<% }); %>

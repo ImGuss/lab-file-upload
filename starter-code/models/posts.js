@@ -4,10 +4,19 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema (
   {
-    content: String,
+    content:   String,
     creatorId: Schema.Types.ObjectId,
-    picPath: String,
-    picName: String
+    picPath:   String,
+    picName:   String,
+    comments: [
+      {
+        content:    String,
+        authorName: String,
+        authorId:   Schema.Types.ObjectId,
+        imagePath:  String,
+        imageName:  String
+      }
+    ]
   },
   {
     timestamps: true

@@ -17,11 +17,11 @@ const myUploader = multer({
 
 
 // user sign in
-router.get('/login', ensureLoggedOut(), (req, res) => {
+router.get('/login', ensureLoggedOut('/'), (req, res) => {
     res.render('authentication/login', { message: req.flash('error')});
 });
 
-router.post('/login', ensureLoggedOut(), passport.authenticate('local-login', {
+router.post('/login', ensureLoggedOut('/'), passport.authenticate('local-login', {
   successRedirect : '/',
   failureRedirect : '/login',
   failureFlash : true
@@ -37,11 +37,11 @@ router.get('/signup', ensureLoggedOut('/'), (req, res, next) => {
 router.post('/signup',
   ensureLoggedOut('/'),
   myUploader.single('filename'),
-  passport.authenticate('local-signup', {
-    successRedirect : '/',
-    failureRedirect : '/signup',
-    failureFlash : true
-  }),
+  // passport.authenticate('local-signup', {
+  //   successRedirect : '/',
+  //   failureRedirect : '/signup',
+  //   failureFlash : true
+  // }),
   (req, res, next) => {
 
     const signupUsername = req.body.signupUsername;
